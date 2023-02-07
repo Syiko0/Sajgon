@@ -106,7 +106,8 @@ function Creature:addSummon(monster)
 	summon:setSkillLoss(false)
 	summon:setMaster(self)
 	summon:getPosition():notifySummonAppear(summon)
-
+	local desc ="a "..summon:getName()..". It's a summon of "..self:getName()..""
+	monster:rename(summon:getName(),desc)
 	return true
 end
 
