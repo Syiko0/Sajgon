@@ -159,6 +159,9 @@ class ItemAttributes
 			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_UNIQUEID));
 		}
 
+		uint16_t getWrapId() const {
+			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_WRAPID));
+		}
 		void setCharges(uint16_t n) {
 			setIntAttr(ITEM_ATTRIBUTE_CHARGES, n);
 		}
@@ -715,7 +718,12 @@ class Item : virtual public Thing
 			}
 			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_UNIQUEID));
 		}
-
+		uint16_t getWrapId() const {
+			if (!attributes) {
+				return 0;
+			}
+			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_WRAPID));
+		}
 		void setCharges(uint16_t n) {
 			setIntAttr(ITEM_ATTRIBUTE_CHARGES, n);
 		}

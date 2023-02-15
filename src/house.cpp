@@ -232,6 +232,10 @@ bool House::transferToDepot(Player* player) const
 							moveItemList.push_back(containerItem);
 						}
 					}
+					if (item->getWrapId() > 0 ){
+						Item* newItem = g_game.transformItem(item, item->getWrapId() );
+						if (!newItem->isRemoved() && newItem->getParent()) {moveItemList.push_back(newItem);}
+					}
 				}
 			}
 		}
