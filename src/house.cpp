@@ -227,15 +227,26 @@ bool House::transferToDepot(Player* player) const
 					moveItemList.push_back(item);
 				} else {
 					Container* container = item->getContainer();
-					if (container) {
-						for (Item* containerItem : container->getItemList()) {
+					if (container) 
+					{
+						for (Item* containerItem : container->getItemList()) 
+						{
 							moveItemList.push_back(containerItem);
 						}
 					}
-					if (item->getWrapId() > 0 ){
+					const ItemType& it = Item::items[item->getID()];
+					if (item->getWrapId() > 0){
 						Item* newItem = g_game.transformItem(item, item->getWrapId() );
-						if (!newItem->isRemoved() && newItem->getParent()) {moveItemList.push_back(newItem);}
+						if (!newItem->isRemoved() && newItem->getParent()){moveItemList.push_back(newItem);}
+						
 					}
+					else if (item->getWrapId() <= 0 && it.isBed())
+					{
+					Item* newItem = g_game.transformItem(item, 7905 );//7905 any moveable items parcel and not count able item that can be remove by g_game removeitem function.
+					g_game.internalRemoveItem(newItem);
+				
+					}
+					
 				}
 			}
 		}
