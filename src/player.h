@@ -20,7 +20,7 @@
 #include "town.h"
 #include "mounts.h"
 #include "storeinbox.h"
-
+ 
 #include <bitset>
 
 class House;
@@ -264,7 +264,13 @@ class Player final : public Creature, public Cylinder
 
 			return client->getVersion();
 		}
-
+		void sendExtendedOpcode(uint32_t opcode, const std::string& buffer)
+			{
+			std::cout<<"opcode c++" << opcode <<" ||| "<< buffer <<std::endl;
+			if(client) 
+			client->sendExtendedOpcode(opcode, buffer);
+			
+			}
 		bool hasSecureMode() const {
 			return secureMode;
 		}
