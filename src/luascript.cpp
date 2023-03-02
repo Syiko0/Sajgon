@@ -2435,7 +2435,8 @@ void LuaScriptInterface::registerFunctions()
 
 	registerMethod("Player", "getStorageValue", LuaScriptInterface::luaPlayerGetStorageValue);
 	registerMethod("Player", "setStorageValue", LuaScriptInterface::luaPlayerSetStorageValue);
-
+	registerMethod("Player", "sendExtendedOpcode", LuaScriptInterface::luaPlayerSendExtendedOpcode);
+	
 	registerMethod("Player", "addItem", LuaScriptInterface::luaPlayerAddItem);
 	registerMethod("Player", "addItemEx", LuaScriptInterface::luaPlayerAddItemEx);
 	registerMethod("Player", "removeItem", LuaScriptInterface::luaPlayerRemoveItem);
@@ -9197,6 +9198,23 @@ int LuaScriptInterface::luaPlayerSetStorageValue(lua_State* L)
 		lua_pushnil(L);
 	}
 	return 1;
+}
+
+
+int LuaScriptInterface::luaPlayerSendExtendedOpcode(lua_State* L)
+{
+    //player:sendExtendedOpcode( opcode, buffer)
+
+	std::string buffer = getString(L, 3);
+	uint32_t opcode = getNumber<uint32_t>(L, 2);
+    Player* player = getUserdata<Player>(L, 1);
+
+  	if (player) {
+        player->sendExtendedOpcode(opcode, buffer);
+        lua_pushboolean(L, true);
+    }
+    		lua_pushnil(L);
+    return 1;
 }
 
 int LuaScriptInterface::luaPlayerAddItem(lua_State* L)

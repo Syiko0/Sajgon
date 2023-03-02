@@ -56,6 +56,7 @@ class ProtocolGame final : public Protocol
 		uint16_t getVersion() const {
 			return version;
 		}
+		void sendExtendedOpcode(uint32_t opcode, const std::string& buffer);
 
 	private:
 		ProtocolGame_ptr getThis() {

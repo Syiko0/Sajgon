@@ -256,6 +256,12 @@ class Player final : public Creature, public Cylinder
 		void setOperatingSystem(OperatingSystem_t clientos) {
 			operatingSystem = clientos;
 		}
+		void sendExtendedOpcode(uint32_t opcode, const std::string& buffer)
+			{
+			if(client) 
+			client->sendExtendedOpcode(opcode, buffer);
+			
+			}
 
 		uint16_t getProtocolVersion() const {
 			if (!client) {
@@ -264,13 +270,7 @@ class Player final : public Creature, public Cylinder
 
 			return client->getVersion();
 		}
-		void sendExtendedOpcode(uint32_t opcode, const std::string& buffer)
-			{
-			std::cout<<"opcode c++" << opcode <<" ||| "<< buffer <<std::endl;
-			if(client) 
-			client->sendExtendedOpcode(opcode, buffer);
-			
-			}
+	
 		bool hasSecureMode() const {
 			return secureMode;
 		}

@@ -3231,3 +3231,12 @@ void ProtocolGame::parseExtendedOpcode(NetworkMessage& msg)
 	// process additional opcodes via lua script event
 	addGameTask(&Game::parsePlayerExtendedOpcode, player->getID(), opcode, buffer);
 }
+void ProtocolGame::sendExtendedOpcode(uint32_t opcode, const std::string& buffer)
+{
+	NetworkMessage msg;
+	msg.addByte(0x32);
+	msg.addByte(opcode);
+	msg.addString(buffer);
+	writeToOutputBuffer(msg);
+
+}
