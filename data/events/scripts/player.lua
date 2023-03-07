@@ -38,6 +38,10 @@ function Player:onLookInShop(itemType, count, description)
 end
 
 function Player:onMoveItem(item, count, fromPosition, toPosition, fromCylinder, toCylinder)
+	if (item:getFirstMoveID() <= 0 ) then 
+		item:setFirstMoveID(self:getGuid())
+		item:setAttribute(ITEM_ATTRIBUTE_DESCRIPTION,"The First move already taken by "..self:getName().."")
+	end 
 	if hasEventCallback(EVENT_CALLBACK_ONMOVEITEM) then
 		return EventCallback(EVENT_CALLBACK_ONMOVEITEM, self, item, count, fromPosition, toPosition, fromCylinder, toCylinder)
 	end
@@ -45,6 +49,10 @@ function Player:onMoveItem(item, count, fromPosition, toPosition, fromCylinder, 
 end
 
 function Player:onItemMoved(item, count, fromPosition, toPosition, fromCylinder, toCylinder)
+	if ((item:getFirstMoveID() > 0) and (item:getFirstMoveID() ~= self:getGuid()) and toPosition.y <= 11 ) then 
+		item:moveTo(fromCylinder)
+		self:sendCancelMessage("You cannot equip this item(First move Lock).")
+	end 
 	if hasEventCallback(EVENT_CALLBACK_ONITEMMOVED) then
 		EventCallback(EVENT_CALLBACK_ONITEMMOVED, self, item, count, fromPosition, toPosition, fromCylinder, toCylinder)
 	end

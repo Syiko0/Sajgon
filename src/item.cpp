@@ -545,6 +545,16 @@ Attr_ReadValue Item::readAttr(AttrTypes_t attr, PropStream& propStream)
 			setIntAttr(ITEM_ATTRIBUTE_EXTRADEFENSE, extraDefense);
 			break;
 		}
+		
+		case ATTR_FIRSTMOVE: {
+			uint32_t firstmoveid;
+			if (!propStream.read<uint32_t>(firstmoveid)) {
+				return ATTR_READ_ERROR;
+			}
+
+			setIntAttr(ITEM_ATTRIBUTE_FIRSTMOVE, firstmoveid);
+			break;
+		}
 
 		case ATTR_ARMOR: {
 			int32_t armor;
@@ -820,6 +830,11 @@ void Item::serializeAttr(PropWriteStream& propWriteStream) const
 	if (hasAttribute(ITEM_ATTRIBUTE_ARMOR)) {
 		propWriteStream.write<uint8_t>(ATTR_ARMOR);
 		propWriteStream.write<int32_t>(getIntAttr(ITEM_ATTRIBUTE_ARMOR));
+	}
+	
+	if (hasAttribute(ITEM_ATTRIBUTE_FIRSTMOVE)) {
+		propWriteStream.write<uint8_t>(ATTR_FIRSTMOVE);
+		propWriteStream.write<uint32_t>(getIntAttr(ITEM_ATTRIBUTE_FIRSTMOVE));
 	}
 
 	if (hasAttribute(ITEM_ATTRIBUTE_HITCHANCE)) {

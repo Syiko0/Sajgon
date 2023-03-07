@@ -1506,6 +1506,7 @@ void LuaScriptInterface::registerFunctions()
 	registerEnum(ITEM_ATTRIBUTE_WRAPID)
 	registerEnum(ITEM_ATTRIBUTE_STOREITEM)
 	registerEnum(ITEM_ATTRIBUTE_ATTACK_SPEED)
+	registerEnum(ITEM_ATTRIBUTE_FIRSTMOVE)
 
 	registerEnum(ITEM_TYPE_DEPOT)
 	registerEnum(ITEM_TYPE_MAILBOX)
@@ -2192,6 +2193,9 @@ void LuaScriptInterface::registerFunctions()
 	registerMethod("Item", "getUniqueId", LuaScriptInterface::luaItemGetUniqueId);
 	registerMethod("Item", "getActionId", LuaScriptInterface::luaItemGetActionId);
 	registerMethod("Item", "setActionId", LuaScriptInterface::luaItemSetActionId);
+	
+	registerMethod("Item", "getFirstMoveID", LuaScriptInterface::luaItemGetFirstMoveID);
+	registerMethod("Item", "setFirstMoveID", LuaScriptInterface::luaItemSetFirstMoveID);
 
 	registerMethod("Item", "getCount", LuaScriptInterface::luaItemGetCount);
 	registerMethod("Item", "getCharges", LuaScriptInterface::luaItemGetCharges);
@@ -6308,6 +6312,32 @@ int LuaScriptInterface::luaItemSetActionId(lua_State* L)
 	Item* item = getUserdata<Item>(L, 1);
 	if (item) {
 		item->setActionId(actionId);
+		pushBoolean(L, true);
+	} else {
+		lua_pushnil(L);
+	}
+	return 1;
+}
+
+int LuaScriptInterface::luaItemGetFirstMoveID(lua_State* L)
+{
+	// item:getFirstMoveID()
+	Item* item = getUserdata<Item>(L, 1);
+	if (item) {
+		lua_pushnumber(L, item->getFirstMoveID());
+	} else {
+		lua_pushnil(L);
+	}
+	return 1;
+}
+
+int LuaScriptInterface::luaItemSetFirstMoveID(lua_State* L)
+{
+	// item:setFirstMoveID(FirstMoveID)
+	uint16_t FirstMoveID = getNumber<uint16_t>(L, 2);
+	Item* item = getUserdata<Item>(L, 1);
+	if (item) {
+		item->setFirstMoveID(FirstMoveID);
 		pushBoolean(L, true);
 	} else {
 		lua_pushnil(L);

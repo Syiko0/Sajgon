@@ -1011,6 +1011,8 @@ std::string getFirstLine(const std::string& str)
 const char* getReturnMessage(ReturnValue value)
 {
 	switch (value) {
+		case RETURNVALUE_NOTFIRSTMOVE : 
+			return "You can't equip this item not first move.";
 		case RETURNVALUE_DESTINATIONOUTOFREACH:
 			return "Destination is out of range.";
 

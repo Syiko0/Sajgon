@@ -95,6 +95,7 @@ enum AttrTypes_t {
 	ATTR_OPENCONTAINER = 39,
 	ATTR_PODIUMOUTFIT = 40,
 	ATTR_TIER = 41,
+	ATTR_FIRSTMOVE = 42,
 };
 
 enum Attr_ReadValue {
@@ -150,6 +151,15 @@ class ItemAttributes
 		}
 		uint16_t getActionId() const {
 			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_ACTIONID));
+		}
+		
+		void setFirstMoveID(uint16_t n) 	
+		{ 
+			setIntAttr(ITEM_ATTRIBUTE_FIRSTMOVE, n); 
+		}
+		uint16_t getFirstMoveID() const 
+		{ 
+			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_FIRSTMOVE)); 
 		}
 
 		void setUniqueId(uint16_t n) {
@@ -503,7 +513,7 @@ class ItemAttributes
 			| ITEM_ATTRIBUTE_ARMOR | ITEM_ATTRIBUTE_HITCHANCE | ITEM_ATTRIBUTE_SHOOTRANGE | ITEM_ATTRIBUTE_OWNER
 			| ITEM_ATTRIBUTE_DURATION | ITEM_ATTRIBUTE_DECAYSTATE | ITEM_ATTRIBUTE_CORPSEOWNER | ITEM_ATTRIBUTE_CHARGES
 			| ITEM_ATTRIBUTE_FLUIDTYPE | ITEM_ATTRIBUTE_DOORID | ITEM_ATTRIBUTE_DECAYTO | ITEM_ATTRIBUTE_WRAPID | ITEM_ATTRIBUTE_STOREITEM
-			| ITEM_ATTRIBUTE_ATTACK_SPEED;
+			| ITEM_ATTRIBUTE_ATTACK_SPEED|ITEM_ATTRIBUTE_FIRSTMOVE;
 		const static uint32_t stringAttributeTypes = ITEM_ATTRIBUTE_DESCRIPTION | ITEM_ATTRIBUTE_TEXT | ITEM_ATTRIBUTE_WRITER
 			| ITEM_ATTRIBUTE_NAME | ITEM_ATTRIBUTE_ARTICLE | ITEM_ATTRIBUTE_PLURALNAME;
 
@@ -710,6 +720,20 @@ class Item : virtual public Thing
 				return 0;
 			}
 			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_ACTIONID));
+		}
+		
+		void setFirstMoveID(uint16_t n)
+		{
+
+		setIntAttr(ITEM_ATTRIBUTE_FIRSTMOVE, n);
+		}
+
+		uint16_t getFirstMoveID() const
+		{
+			if (!attributes) {
+				return 0;
+			}
+			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_FIRSTMOVE));
 		}
 
 		uint16_t getUniqueId() const {

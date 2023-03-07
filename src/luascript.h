@@ -722,6 +722,9 @@ class LuaScriptInterface
 		static int luaItemGetUniqueId(lua_State* L);
 		static int luaItemGetActionId(lua_State* L);
 		static int luaItemSetActionId(lua_State* L);
+		
+		static int luaItemGetFirstMoveID(lua_State* L);
+		static int luaItemSetFirstMoveID(lua_State* L);
 
 		static int luaItemGetCount(lua_State* L);
 		static int luaItemGetCharges(lua_State* L);
