@@ -168,7 +168,9 @@ class ItemAttributes
 		uint16_t getUniqueId() const {
 			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_UNIQUEID));
 		}
-
+		bool isEquipment() const {
+			return items[id].equipment;
+		}
 		uint16_t getWrapId() const {
 			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_WRAPID));
 		}
@@ -741,6 +743,9 @@ class Item : virtual public Thing
 				return 0;
 			}
 			return static_cast<uint16_t>(getIntAttr(ITEM_ATTRIBUTE_UNIQUEID));
+		}
+		bool isEquipment() const {
+			return items[id].equipment;
 		}
 		uint16_t getWrapId() const {
 			if (!attributes) {

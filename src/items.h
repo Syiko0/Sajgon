@@ -372,6 +372,7 @@ class ItemType
 		bool lookThrough = false;
 		bool stopTime = false;
 		bool showCount = true;
+		bool equipment = false;
 };
 
 class Items

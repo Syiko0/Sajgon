@@ -760,7 +760,7 @@ class LuaScriptInterface
 
 		static int luaItemSetStoreItem(lua_State* L);
 		static int luaItemIsStoreItem(lua_State* L);
-
+		static int luaItemIsEquipment(lua_State* L);
 		// Container
 		static int luaContainerCreate(lua_State* L);
 
